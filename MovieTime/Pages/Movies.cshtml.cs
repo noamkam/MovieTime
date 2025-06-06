@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MovieTime.Pages
 {
-    public class PrivacyModel : PageModel
+    public class MoviesModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly ILogger<MoviesModel> _logger;
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public MoviesModel(ILogger<MoviesModel> logger)
         {
             _logger = logger;
         }

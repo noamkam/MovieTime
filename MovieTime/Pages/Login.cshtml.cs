@@ -26,7 +26,7 @@ namespace MovieTime.Pages
         }
         public void OnGet()
         {
-            // Nothing on GET
+            
         }
 
         public async Task<IActionResult> OnPost()
@@ -43,6 +43,8 @@ namespace MovieTime.Pages
             //Check if customer exists with the username and password
             if (customer != null)
             {
+                //save the username in session
+                HttpContext.Session.SetString("UserName", customer.UserName);
                 return RedirectToPage("/Index");
             }
 
