@@ -1,9 +1,25 @@
 ﻿@page
-@model MoviesModel
+@model MovieTime.Pages.MoviesModel
 @{
     ViewData["Title"] = "כל הסרטים";
 }
 
-<div class="text-center">
-    <p dir="rtl">רשימת כל הסרטים שלנו</p>
+<div class="row row-cols-1 row-cols-md-4 g-3">
+    @foreach (var movie in Model.Movies)
+    {
+        <div class="col d-flex justify-content-center">
+            <div class="card bg-dark text-white border border-warning" style="width: 14rem; font-size: 0.85rem;">
+                <img src="~/Images/@movie.Image" class="card-img-top"
+                     alt="@movie.Title"
+                     style="width: 100%; height: auto;" />
+                    <div class="card-body p-2">
+                    <h6 class="card-title text-warning">@movie.Title</h6>
+                    <p class="card-text mb-1">@movie.Description</p>
+                    <p class="mb-1"><strong>Duration:</strong> @movie.Duration min</p>
+                    <p class="mb-0"><strong>Genre:</strong> @movie.Genre?.Name</p>
+                </div>
+            </div>
+        </div>
+    }
 </div>
+

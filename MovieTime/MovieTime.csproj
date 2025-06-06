@@ -23,4 +23,9 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Images\FrozenMovie.png" />
+    <None Include="wwwroot\Images\TitanicMovie.png" />
+  </ItemGroup>
+
 </Project>

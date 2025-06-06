@@ -1,0 +1,60 @@
+﻿@page
+@model MovieTime.Pages.BookTicketModel
+@{
+    ViewData["Title"] = "רכישת כרטיסים";
+}
+
+<h2 class="text-center">רכישת כרטיסים</h2>
+
+<form method="post" style="max-width: 500px; margin: auto;">
+    <div class="form-group mb-3 text-end">
+        <label for="SelectedMovieId">בחר סרט</label>
+        <select asp-for="SelectedMovieId" asp-items="Model.MoviesSelectList" class="form-select" id="SelectedMovieId">
+            <option value="">בחר סרט</option>
+        </select>
+    </div>
+
+    <div class="form-group mb-3 text-end">
+        <label for="SelectedScreeningId">בחר תאריך ושעה</label>
+        <select asp-for="SelectedScreeningId" asp-items="Model.ScreeningsList" class="form-select" id="SelectedScreeningId">
+            <option value="">בחר תאריך</option>
+        </select>
+    </div>
+
+    <div class="form-group mb-3 text-end">
+        <label asp-for="NumTickets">מספר כרטיסים:</label>
+        <input asp-for="NumTickets" type="number" class="form-control" min="1" />
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-warning">לרכישה</button>
+    </div>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="text-success text-center">@Model.Message</p>
+}
+
+@section Scripts {
+    <script>
+        document.getElementById("SelectedMovieId").addEventListener("change", function () {
+            var movieId = this.value;
+            var screeningSelect = document.getElementById("SelectedScreeningId");
+
+            screeningSelect.innerHTML = '<option>טוען...</option>';
+
+            fetch(`/BookTicket?handler=Screenings&movieId=${movieId}`)
+                .then(response => response.json())
+                .then(data => {
+                    screeningSelect.innerHTML = '<option value="">בחר תאריך</option>';
+                    data.forEach(s => {
+                        var option = document.createElement("option");
+                        option.value = s.id;
+                        option.text = s.date;
+                        screeningSelect.appendChild(option);
+                    });
+                });
+        });
+    </script>
+}

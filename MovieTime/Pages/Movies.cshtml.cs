@@ -1,19 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using MovieTime.Context;
+using MovieTime.Models;
 
 namespace MovieTime.Pages
 {
     public class MoviesModel : PageModel
     {
-        private readonly ILogger<MoviesModel> _logger;
+        private readonly MovieTimeDBContext _context;
 
-        public MoviesModel(ILogger<MoviesModel> logger)
+        public MoviesModel(MovieTimeDBContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public void OnGet()
+        public List<Movie> Movies { get; set; }
+
+        public async Task OnGetAsync()
         {
+            Movies = await _context.Movies
+           .Include(m => m.Genre) // Include Genre info
+           .ToListAsync();
         }
     }
 
