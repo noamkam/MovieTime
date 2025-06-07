@@ -20,7 +20,8 @@ namespace MovieTime.Pages
         public async Task OnGetAsync()
         {
             Movies = await _context.Movies
-           .Include(m => m.Genre) // Include Genre info
+           .Include(m => m.Genre)
+           .Include(m => m.Language)
            .ToListAsync();
         }
     }

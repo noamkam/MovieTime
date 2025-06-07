@@ -16,7 +16,7 @@ namespace MovieTime.Models
         public int? Duration { get; set; } // Duration in minutes
         public int LanguageId { get; set; } //FK for Language
         public Language? Language { get; set; } 
-        public bool? DubbedIntoHebrew { get; set; }
+        public bool DubbedIntoHebrew { get; set; }
         public ICollection<Screening> Screenings { get; set; } // One to Many relationship with Screening
     }
 }

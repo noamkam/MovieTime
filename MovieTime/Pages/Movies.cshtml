@@ -11,12 +11,16 @@
             <div class="card bg-dark text-white border border-warning" style="width: 14rem; font-size: 0.85rem;">
                 <img src="~/Images/@movie.Image" class="card-img-top"
                      alt="@movie.Title"
-                     style="width: 100%; height: auto;" />
+                     style="width: 100%; height: auto;" dir="rtl" />
                     <div class="card-body p-2">
-                    <h6 class="card-title text-warning">@movie.Title</h6>
-                    <p class="card-text mb-1">@movie.Description</p>
-                    <p class="mb-1"><strong>Duration:</strong> @movie.Duration min</p>
-                    <p class="mb-0"><strong>Genre:</strong> @movie.Genre?.Name</p>
+                    <h6 class="card-title text-warning" dir="rtl">@movie.Title</h6>
+                    <p class="card-text mb-1" dir="rtl">@movie.Description</p>
+                    <p class="mb-1" dir="rtl"><strong>אורך:</strong> @movie.Duration דקות</p>
+                    <p class="mb-0" dir="rtl"><strong>שפה:</strong> @movie.Language?.Name</p>
+                    <p class="mb-0" dir="rtl"><strong>ז'אנר:</strong> @movie.Genre?.Name</p>
+                    <p class="mb-0" dir="rtl">
+                        <strong>דיבוב לעברית:</strong> @(movie.DubbedIntoHebrew ? "כן" : "לא")
+                    </p>
                 </div>
             </div>
         </div>

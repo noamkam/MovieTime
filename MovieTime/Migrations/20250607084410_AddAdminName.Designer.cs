@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieTime.Context;
 
@@ -11,9 +12,11 @@ using MovieTime.Context;
 namespace MovieTime.Migrations
 {
     [DbContext(typeof(MovieTimeDBContext))]
-    partial class MovieTimeDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250607084410_AddAdminName")]
+    partial class AddAdminName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

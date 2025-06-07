@@ -1,0 +1,120 @@
+﻿@page
+@model MovieTime.Pages.SelectSeatsModel
+@{
+    ViewData["Title"] = "בחר מושבים";
+}
+
+<form method="post">
+    <input type="hidden" asp-for="ScreeningId" />
+    <input type="hidden" asp-for="NumTickets" />
+
+    <div class="seat-map d-flex flex-column align-items-center">
+        @{
+            int seatsPerRow = 10;
+            for (int row = 0; row < (Model.HallSeats.Count + seatsPerRow - 1) / seatsPerRow; row++)
+            {
+                <div class="seat-row mb-2">
+                    @for (int col = 0; col < seatsPerRow; col++)
+                    {
+                        int index = row * seatsPerRow + col;
+                        if (index >= Model.HallSeats.Count) break;
+
+                        var seat = Model.HallSeats[index];
+                        bool taken = Model.TakenSeats.Contains(seat);
+
+                        <div class="seat-wrapper d-inline-block me-2">
+                            <input type="checkbox" id="seat-@seat" name="SelectedSeats" value="@seat"
+                                   @(taken ? "disabled" : "") class="seat-checkbox d-none" />
+                            <label for="seat-@seat"
+                                   class="seat-label btn @(taken ? "btn-secondary" : "btn-light")"
+                                   data-seat="@seat">
+                                @seat
+                            </label>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-danger">אשר מושבים</button>
+    </div>
+
+    @if (!ModelState.IsValid)
+    {
+        <div class="text-danger text-center mt-2">@ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage</div>
+    }
+</form>
+
+@section Scripts {
+    <script>
+        const maxSeats = @Model.NumTickets;
+
+        document.querySelectorAll('.seat-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                if (this.disabled) return;
+
+                const selected = document.querySelectorAll('.seat-checkbox:checked').length;
+
+                if (selected > maxSeats) {
+                    alert(`באפשרותך לבחור רק ${maxSeats} מושבים.`);
+                    this.checked = false;  // undo this selection
+                    return;
+                }
+
+                // Update label color based on checkbox state
+                const label = document.querySelector(`label[for='${this.id}']`);
+                if (this.checked) {
+                    label.classList.remove('btn-light');
+                    label.classList.add('btn-danger');
+                } else {
+                    label.classList.remove('btn-danger');
+                    label.classList.add('btn-light');
+                }
+            });
+        });
+
+    </script>
+}
+
+<style>
+    .seat-label {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 35px;
+        font-weight: bold;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .seat-map {
+        direction: rtl;
+    }
+
+    .seat-wrapper {
+        display: inline-block;
+    }
+
+    .btn-light {
+        background-color: white;
+        border: 1px solid #ccc;
+        color: black;
+    }
+
+    .btn-danger {
+        background-color: red !important;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: gray !important;
+        color: white;
+        cursor: not-allowed;
+    }
+
+    .d-none {
+        display: none;
+    }
+</style>

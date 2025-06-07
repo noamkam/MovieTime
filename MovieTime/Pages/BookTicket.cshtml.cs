@@ -18,10 +18,11 @@ namespace MovieTime.Pages
         [BindProperty]
         public int SelectedMovieId { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public int SelectedScreeningId { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
+        
         public int NumTickets { get; set; }
 
         public List<SelectListItem> MoviesSelectList { get; set; } = new();
@@ -54,9 +55,9 @@ namespace MovieTime.Pages
 
         public IActionResult OnPost()
         {
-            // Add your logic to save the booking
-            Message = "הכרטיסים נרכשו בהצלחה!";
-            return Page();
+            return RedirectToPage("/SelectSeats", new { ScreeningId = SelectedScreeningId, NumTickets = NumTickets });
+            //Message = "הכרטיסים נרכשו בהצלחה!";
+            //return Page();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace MovieTime.Context
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
-
+        public DbSet<Admin> Admins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
