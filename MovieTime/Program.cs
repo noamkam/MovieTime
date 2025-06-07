@@ -9,7 +9,7 @@ builder.Services.AddDbContext<MovieTimeDBContext>(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
-
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

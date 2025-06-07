@@ -31,10 +31,9 @@ namespace MovieTime.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            //Check if the model state is valid
             if (!ModelState.IsValid)
             {
-                return Page(); 
+                return Page();
             }
 
             var customer = await _context.Customers
@@ -43,7 +42,7 @@ namespace MovieTime.Pages
             //Check if customer exists with the username and password
             if (customer != null)
             {
-                //save the username in session
+                //save the Name in session
                 HttpContext.Session.SetString("UserName", customer.Name);
                 return RedirectToPage("/Index");
             }
