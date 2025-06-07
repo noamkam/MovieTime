@@ -1,0 +1,23 @@
+﻿@page
+@model MovieTime.Pages.Admin.AddGenreModel
+@{
+    ViewData["Title"] = "הוסף ז'אנר";
+}
+
+<form method="post" class="container mt-4" dir="rtl">
+    <div class="form-group mb-3">
+        <input asp-for="Genre.Name" class="form-control" placeholder="שם הז'אנר" />
+        <span asp-validation-for="Genre.Name" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning">הוסף ז'אנר</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="text-success mt-3 text-center">@Model.Message</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

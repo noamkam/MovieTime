@@ -21,12 +21,15 @@
 
                         var seat = Model.HallSeats[index];
                         bool taken = Model.TakenSeats.Contains(seat);
+                        bool isSelected = Model.SelectedSeats != null && Model.SelectedSeats.Contains(seat);
 
                         <div class="seat-wrapper d-inline-block me-2">
                             <input type="checkbox" id="seat-@seat" name="SelectedSeats" value="@seat"
-                                   @(taken ? "disabled" : "") class="seat-checkbox d-none" />
+                                   @(taken ? "disabled" : "")
+                                   @(isSelected ? "checked" : "")
+                                   class="seat-checkbox d-none" />
                             <label for="seat-@seat"
-                                   class="seat-label btn @(taken ? "btn-secondary" : "btn-light")"
+                                   class="seat-label btn @(taken ? "btn-secondary" : isSelected ? "btn-danger" : "btn-light")"
                                    data-seat="@seat">
                                 @seat
                             </label>
@@ -43,27 +46,25 @@
 
     @if (!ModelState.IsValid)
     {
-        <div class="text-danger text-center mt-2">@ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage</div>
+        <div class="text-danger text-center mt-2">
+            @ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage
+        </div>
     }
 </form>
 
 @section Scripts {
     <script>
-        const maxSeats = @Model.NumTickets;
+    //    const maxSeats = @Model.NumTickets;
 
         document.querySelectorAll('.seat-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', function () {
                 if (this.disabled) return;
 
-                const selected = document.querySelectorAll('.seat-checkbox:checked').length;
+                const selected = Array.from(document.querySelectorAll('.seat-checkbox'))
+                    .filter(cb => cb.checked && !cb.disabled).length;
 
-                if (selected > maxSeats) {
-                    alert(`באפשרותך לבחור רק ${maxSeats} מושבים.`);
-                    this.checked = false;  // undo this selection
-                    return;
-                }
+               
 
-                // Update label color based on checkbox state
                 const label = document.querySelector(`label[for='${this.id}']`);
                 if (this.checked) {
                     label.classList.remove('btn-light');
@@ -74,7 +75,6 @@
                 }
             });
         });
-
     </script>
 }
 

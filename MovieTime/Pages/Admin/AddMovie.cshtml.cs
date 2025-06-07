@@ -47,18 +47,6 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var movie = new Movie
-            {
-                Title  = Movie.Title,
-                Description = Movie.Description,
-                GenreId = Movie.GenreId,
-                ReleaseDate = Movie.ReleaseDate,
-                Image = Movie.Image,
-                Duration = Movie.Duration,
-                LanguageId = Movie.LanguageId,
-                DubbedIntoHebrew = Movie.DubbedIntoHebrew
-            };
-
             _context.Movies.Add(Movie);
             await _context.SaveChangesAsync();
             Message = AdminMessages.AddMovieSuccess;

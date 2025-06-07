@@ -46,7 +46,7 @@ namespace MovieTime.Pages
                 .Where(s => s.MovieId == movieId)
                 .Select(s => new
                 {
-                    id = s.MovieId,
+                    id = s.ScreeningId,
                     date = s.ScreeningDateTime.ToString("dd/MM/yyyy HH:mm")
                 }).ToListAsync();
 

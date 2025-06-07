@@ -44,6 +44,7 @@ namespace MovieTime.Pages
             {
                 //save the Name in session
                 HttpContext.Session.SetString("UserName", customer.Name);
+                HttpContext.Session.SetString("CustomerId", customer.Id.ToString());
                 return RedirectToPage("/Index");
             }
 

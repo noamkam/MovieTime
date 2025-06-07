@@ -1,0 +1,28 @@
+﻿@page
+@model MovieTime.Pages.Admin.AddHallModel
+@{
+    ViewData["Title"] = "הוסף אולם";
+}
+<form method="post" class="container mt-4" dir="rtl">
+    <div class="form-group mb-3">
+        <input asp-for="Hall.SeatCount" type="number" class="form-control" placeholder="מספר כיסאות" />
+        <span asp-validation-for="Hall.SeatCount" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="Hall.IsVIP" class="form-check-input" type="checkbox" />
+        <label asp-for="Hall.IsVIP" class="form-check-label">אולם VIP</label>
+        <span asp-validation-for="Hall.IsVIP" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning">הוסף אולם</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-success text-center mt-3">@Model.Message</div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

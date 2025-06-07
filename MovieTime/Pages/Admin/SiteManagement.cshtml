@@ -3,8 +3,36 @@
 @{
     ViewData["Title"] = "ניהול האתר";
 }
+<style>
+.nav-button {
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    text-decoration: none;
+    direction: rtl;
+    margin-bottom: 10px;
+    transition: 0.2s ease;
+}
+
+.nav-button:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+            .nav-list
+
+}
+</style>
 
 <ul>
-    <li><a asp-page="/Admin/AddMovie">הוסף סרט</a></li>
-    <li><a asp-page="/Admin/AddScreening">הוסף הקרנה</a></li>
+    <li><a asp-page="/Admin/AddMovie" class="nav-button">הוסף סרט</a></li>
+    <li><a asp-page="/Admin/AddHall" class="nav-button">הוסף אולם</a></li>
+    <li><a asp-page="/Admin/AddLanguage" class="nav-button">הוסף שפה</a></li>
+    <li><a asp-page="/Admin/AddGenre" class="nav-button">הוסף ז'אנר</a></li>
+    <li><a asp-page="/Admin/AddScreening" class="nav-button">הוסף הקרנה</a></li>
+
 </ul>

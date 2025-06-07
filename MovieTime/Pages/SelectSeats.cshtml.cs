@@ -50,21 +50,32 @@ namespace MovieTime.Pages
             if (SelectedSeats == null || SelectedSeats.Count != NumTickets)
             {
                 ModelState.AddModelError("", $"יש לבחור בדיוק {NumTickets} מושבים.");
-                return await OnGetAsync(ScreeningId, NumTickets); 
+                return await OnGetAsync(ScreeningId, NumTickets);
             }
 
-            
+            var customerId = HttpContext.Session.GetString("CustomerId");
+            var newPurchase = new Purchase
+            {
+                PurchaseDate = DateTime.Now,
+                CustomerId = int.Parse(customerId),
+                TotalPrice = NumTickets * 40
+        };
+            _context.Purchases.Add(newPurchase);
+            await _context.SaveChangesAsync(); // Now newPurchase.PurchaseId is set
+
+
             foreach (var seat in SelectedSeats)
             {
                 _context.Tickets.Add(new Ticket
                 {
                     ScreeningId = ScreeningId,
-                    SeatId = seat
+                    SeatId = seat,
+                    PurchaseId = newPurchase.PurchaseId
                 });
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("/Success"); 
+            return Page();
         }
     }
 }

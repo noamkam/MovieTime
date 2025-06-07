@@ -1,0 +1,24 @@
+﻿@page
+@model MovieTime.Pages.Admin.AddLanguageModel
+@{
+    ViewData["Title"] = "הוסף שפה";
+}
+
+<form method="post" class="container mt-4" dir="rtl">
+    <div class="form-group mb-3">
+        <input asp-for="Language.Name" class="form-control" placeholder="שפה" />
+        <span asp-validation-for="Language.Name" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning mt-4">הוסף שפה</button>
+
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="text-success mt-3 text-center">@Model.Message</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

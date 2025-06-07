@@ -1,0 +1,34 @@
+﻿@page
+@model MovieTime.Pages.Admin.AddScreeningModel
+@{
+    ViewData["Title"] = "הוסף הקרנה";
+}
+
+<form method="post" class="container mt-4" dir="rtl">
+    <div class="form-group mb-3">
+        <input asp-for="Screening.ScreeningDateTime" class="form-control" placeholder="תאריך הקרנה" />
+        <span asp-validation-for="Screening.ScreeningDateTime" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <select asp-for="Screening.MovieId" class="form-control" asp-items="Model.MoviesSelectList">
+            <option value="">בחר סרט</option>
+        </select>
+        <span asp-validation-for="Screening.MovieId" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <select asp-for="Screening.HallId" class="form-control" asp-items="Model.HallsSelectList">
+            <option value="">בחר אולם</option>
+        </select>
+        <span asp-validation-for="Screening.HallId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-warning">הוסף הקרנה</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="text-success mt-3 text-center">@Model.Message</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
