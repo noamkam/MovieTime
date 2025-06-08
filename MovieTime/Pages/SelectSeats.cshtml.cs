@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MovieTime.Context;
 using MovieTime.Models;
 using System;
@@ -22,9 +23,11 @@ namespace MovieTime.Pages
         public List<int> TakenSeats { get; set; } = new List<int>();
 
         private readonly MovieTimeDBContext _context;
-        public SelectSeatsModel(MovieTimeDBContext context)
+        public IConfiguration Configuration { get; set; }
+        public SelectSeatsModel(MovieTimeDBContext context, IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
 
         public async Task<IActionResult> OnGetAsync(int screeningId, int tickets)
@@ -54,27 +57,31 @@ namespace MovieTime.Pages
             }
 
             var customerId = HttpContext.Session.GetString("CustomerId");
-            var newPurchase = new Purchase
-            {
-                PurchaseDate = DateTime.Now,
-                CustomerId = int.Parse(customerId),
-                TotalPrice = NumTickets * 40
-        };
-            _context.Purchases.Add(newPurchase);
-            await _context.SaveChangesAsync(); // Now newPurchase.PurchaseId is set
+
+            return RedirectToPage("/Payment", new { SelectedSeats = SelectedSeats, CustomerId = customerId, ScreeningId = ScreeningId});
 
 
-            foreach (var seat in SelectedSeats)
-            {
-                _context.Tickets.Add(new Ticket
-                {
-                    ScreeningId = ScreeningId,
-                    SeatId = seat,
-                    PurchaseId = newPurchase.PurchaseId
-                });
-            }
+            //var newPurchase = new Purchase
+            //{
+            //    PurchaseDate = DateTime.Now,
+            //    CustomerId = int.Parse(customerId),
+            //    TotalPrice = NumTickets * Configuration.GetValue<int>("TicketPrice")
+            //};
+            //_context.Purchases.Add(newPurchase);
+            //await _context.SaveChangesAsync(); // Now newPurchase.PurchaseId is set
 
-            await _context.SaveChangesAsync();
+
+            //foreach (var seat in SelectedSeats)
+            //{
+            //    _context.Tickets.Add(new Ticket
+            //    {
+            //        ScreeningId = ScreeningId,
+            //        SeatId = seat,
+            //        PurchaseId = newPurchase.PurchaseId
+            //    });
+            //}
+
+            //await _context.SaveChangesAsync();
             return Page();
         }
     }

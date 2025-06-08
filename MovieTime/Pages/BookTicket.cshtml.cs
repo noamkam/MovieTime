@@ -56,8 +56,7 @@ namespace MovieTime.Pages
         public IActionResult OnPost()
         {
             return RedirectToPage("/SelectSeats", new { ScreeningId = SelectedScreeningId, NumTickets = NumTickets });
-            //Message = "הכרטיסים נרכשו בהצלחה!";
-            //return Page();
+          
         }
     }
 }

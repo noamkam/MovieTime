@@ -25,10 +25,11 @@ namespace MovieTime.Context
         public DbSet<Language> Languages { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Admin> Admins { get; set; }
-
+        public DbSet<BankService> BankService { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Movie>()
                 .HasOne(m => m.Genre)
                 .WithMany(g => g.Movies)

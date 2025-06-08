@@ -1,0 +1,59 @@
+﻿@page
+@model MovieTime.Pages.PaymentModel
+@{
+    ViewData["Title"] = "Enter Payment Details";
+}
+
+<h2>Enter Payment Details</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div style="color:red">@Model.ErrorMessage</div>
+}
+
+<form method="post">
+    <div>
+        <input asp-for="AccountNumber" class="form-control" placeholder="מספר חשבון " />
+        <span asp-validation-for="AccountNumber" class="text-danger"></span>
+    </div>
+
+    <div>
+        <input asp-for="CreditCardNumer" class="form-control" placeholder="מספר אשראי" />
+        <span asp-validation-for="CreditCardNumer" class="text-danger"></span>
+    </div>
+
+    <div>
+        <input asp-for="OwnerId" class="form-control" placeholder="תעודת זהות של בעל הכרטיס" />
+        <span asp-validation-for="OwnerId" class="text-danger"></span>
+    </div>
+
+    <div>
+        <input asp-for="CVV" class="form-control" placeholder="שלוש ספרות בגב הכרטיס" />
+        <span asp-validation-for="CVV" class="text-danger"></span>
+    </div>
+
+    <div>
+        <input asp-for="ValidityMonth" class="form-control" placeholder="חודש תוקף" />
+        <span asp-validation-for="ValidityMonth" class="text-danger"></span>
+    </div>
+
+    <div>
+        <input asp-for="ValidityYear" class="form-control" placeholder="שנת תוקף" />
+        <span asp-validation-for="ValidityYear" class="text-danger"></span>
+    </div>
+
+    <div>
+       
+        <input asp-for="Code" class="form-control" placeholder="קוד קופון"/>
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+
+
+
+    <br />
+    <button type="submit" class="btn btn-primary">Pay</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
