@@ -24,6 +24,7 @@ namespace MovieTime.Pages
 
         private readonly MovieTimeDBContext _context;
         public IConfiguration Configuration { get; set; }
+        public string Message { get; set; }
         public SelectSeatsModel(MovieTimeDBContext context, IConfiguration configuration)
         {
             _context = context;
@@ -38,6 +39,7 @@ namespace MovieTime.Pages
                 .Where(s => s.ScreeningId == ScreeningId)
                 .Select(s => s.Hall)
                 .FirstOrDefaultAsync();
+           
             HallSeats = Enumerable.Range(1, hall.SeatCount).ToList();
 
             TakenSeats = await _context.Tickets
@@ -60,29 +62,6 @@ namespace MovieTime.Pages
 
             return RedirectToPage("/Payment", new { SelectedSeats = SelectedSeats, CustomerId = customerId, ScreeningId = ScreeningId});
 
-
-            //var newPurchase = new Purchase
-            //{
-            //    PurchaseDate = DateTime.Now,
-            //    CustomerId = int.Parse(customerId),
-            //    TotalPrice = NumTickets * Configuration.GetValue<int>("TicketPrice")
-            //};
-            //_context.Purchases.Add(newPurchase);
-            //await _context.SaveChangesAsync(); // Now newPurchase.PurchaseId is set
-
-
-            //foreach (var seat in SelectedSeats)
-            //{
-            //    _context.Tickets.Add(new Ticket
-            //    {
-            //        ScreeningId = ScreeningId,
-            //        SeatId = seat,
-            //        PurchaseId = newPurchase.PurchaseId
-            //    });
-            //}
-
-            //await _context.SaveChangesAsync();
-            return Page();
         }
     }
 }

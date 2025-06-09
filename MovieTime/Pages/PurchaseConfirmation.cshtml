@@ -1,0 +1,12 @@
+﻿@page
+@model MovieTime.Pages.PurchaseConfirmationModel
+
+<h2>אישור רכישה</h2>
+
+<div>
+    <p><strong>סרט:</strong> @Model.MovieTitle</p>
+    <p><strong>תאריך ושעה:</strong> @Model.FormattedDateTime</p>
+    <p><strong>אולם:</strong> @Model.HallNumber</p>
+    <p><strong>מושבים:</strong> @string.Join(", ", Model.SeatNumbers)</p>
+    <p><strong>מספר רכישה:</strong> @Model.PurchaseId</p>
+</div>

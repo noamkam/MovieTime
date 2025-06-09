@@ -54,6 +54,7 @@ namespace MovieTime.Pages.Admin
             await _context.SaveChangesAsync();
             Message = AdminMessages.AddScreeningSuccess;
             return RedirectToPage("AddScreening");
+           
         }
     }
 }

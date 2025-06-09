@@ -1,0 +1,25 @@
+﻿@page
+@model MovieTime.Pages.Admin.DeleteHallModel
+@{
+    ViewData["Title"] = "מחק אולם";
+}
+<form method="post" class="container mt-4" dir="rtl">
+    <div class="form-group mb-3">
+        <label for="hallId">בחר אולם למחיקה</label>
+        <select asp-for="SelectedHallId" class="form-select" asp-items="Model.HallOptions">
+            <option value="">-- בחר אולם --</option>
+        </select>
+        <span asp-validation-for="SelectedHallId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning text-dark">מחק אולם</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="text-success text-center mt-3 fw-bold">@Model.Message</div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

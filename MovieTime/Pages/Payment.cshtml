@@ -1,58 +1,125 @@
 ﻿@page
 @model MovieTime.Pages.PaymentModel
 @{
-    ViewData["Title"] = "Enter Payment Details";
+    ViewData["Title"] = "הכנס פרטים";
 }
-
-<h2>Enter Payment Details</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
-    <div style="color:red">@Model.ErrorMessage</div>
+    <div class="error-message">
+        @Model.ErrorMessage
+    </div>
 }
 
-<form method="post">
-    <div>
+<form method="post" class="rtl-form">
+    <div class="form-group">
         <input asp-for="AccountNumber" class="form-control" placeholder="מספר חשבון " />
         <span asp-validation-for="AccountNumber" class="text-danger"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <input asp-for="CreditCardNumer" class="form-control" placeholder="מספר אשראי" />
         <span asp-validation-for="CreditCardNumer" class="text-danger"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <input asp-for="OwnerId" class="form-control" placeholder="תעודת זהות של בעל הכרטיס" />
         <span asp-validation-for="OwnerId" class="text-danger"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <input asp-for="CVV" class="form-control" placeholder="שלוש ספרות בגב הכרטיס" />
         <span asp-validation-for="CVV" class="text-danger"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <input asp-for="ValidityMonth" class="form-control" placeholder="חודש תוקף" />
         <span asp-validation-for="ValidityMonth" class="text-danger"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <input asp-for="ValidityYear" class="form-control" placeholder="שנת תוקף" />
         <span asp-validation-for="ValidityYear" class="text-danger"></span>
     </div>
 
-    <div>
-       
-        <input asp-for="Code" class="form-control" placeholder="קוד קופון"/>
+    <div class="form-group">
+        <input asp-for="Code" class="form-control" placeholder="קוד קופון" />
         <span asp-validation-for="Code" class="text-danger"></span>
     </div>
 
-
-
-    <br />
-    <button type="submit" class="btn btn-primary">Pay</button>
+    <div class="text-center mt-3">
+        <button type="submit" class="btn custom-btn">לשלם</button>
+    </div>
 </form>
+
+<style>
+    body {
+        background-color: #000; 
+        color: white;
+    }
+
+    .rtl-form {
+        direction: rtl;
+        max-width: 500px;
+        margin: auto;
+        padding: 30px;
+        background-color: #1a1a1a; 
+        border-radius: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        text-align: right;
+    }
+
+    .form-control {
+        background-color: #f8f9fa; 
+        border: 1px solid #ccc; 
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 16px;
+        text-align: right;
+    }
+
+        .form-control::placeholder {
+            color: #6c757d;
+        }
+
+        .form-control:focus {
+            border-color: red;
+            box-shadow: 0 0 5px red;
+            outline: none;
+        }
+
+    .custom-btn {
+        background-color: gold;
+        color: black;
+        border: none;
+        font-weight: bold;
+        padding: 10px 30px;
+        font-size: 18px;
+        border-radius: 8px;
+        transition: 0.3s ease-in-out;
+    }
+
+        .custom-btn:hover {
+            background-color: red;
+            color: white;
+        }
+
+    .error-message {
+        color: red;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    .text-danger {
+        font-size: 14px;
+        color: red !important;
+    }
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

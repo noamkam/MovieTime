@@ -1,0 +1,26 @@
+﻿@page
+@model MovieTime.Pages.Admin.DeleteLanguageModel
+@{
+    ViewData["Title"] = "מחק שפה";
+}
+
+<form method="post" class="container mt-4" dir="rtl">
+    <div class="form-group mb-3">
+        <label for="SelectedLanguageId">בחר שפה למחיקה</label>
+        <select asp-for="SelectedLanguageId" class="form-select" asp-items="Model.LanguageOptions">
+            <option value="">-- בחר שפה --</option>
+        </select>
+        <span asp-validation-for="SelectedLanguageId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning text-dark mt-4">מחק שפה</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="text-success mt-3 text-center fw-bold">@Model.Message</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

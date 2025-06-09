@@ -1,0 +1,27 @@
+﻿@page
+@model MovieTime.Pages.Admin.DeleteGenreModel
+@{
+    ViewData["Title"] = "מחיקת ז'אנרים";
+}
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div style="color: green; margin-bottom: 20px; text-align: right;">
+        @Model.Message
+    </div>
+}
+
+<div style="max-width: 600px; margin-top: 20px; margin-left: auto; margin-right: 0;">
+    @foreach (var genre in Model.Genres)
+    {
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; width: 100%;">
+            <form method="post" asp-page-handler="Delete" asp-route-id="@genre.Id" style="margin: 0;">
+                <button type="submit"
+                        style="background-color: yellow; color: black; border: none; padding: 6px 16px; border-radius: 5px; cursor: pointer;">
+                    מחק
+                </button>
+            </form>
+            <span style="text-align: right;">@genre.Name</span>
+        </div>
+    }
+</div>

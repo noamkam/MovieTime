@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MovieTime.Context;
+using MovieTime.Messages;
 
 namespace MovieTime.Pages
 {
@@ -55,8 +56,22 @@ namespace MovieTime.Pages
 
         public IActionResult OnPost()
         {
+            if (SelectedMovieId == 0)
+            {
+                Message = ErrorMessages.MovieNotSelected;
+                OnGet(); // כדי למלא את MoviesSelectList מחדש
+                return Page();
+            }
+
+            if (SelectedScreeningId == 0)
+            {
+                Message = ErrorMessages.ScreeningNotSelected;
+                OnGet(); // כדי למלא את MoviesSelectList מחדש
+                return Page();
+            }
+
             return RedirectToPage("/SelectSeats", new { ScreeningId = SelectedScreeningId, NumTickets = NumTickets });
-          
+
         }
     }
 }

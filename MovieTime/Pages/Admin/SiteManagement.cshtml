@@ -4,35 +4,69 @@
     ViewData["Title"] = "ניהול האתר";
 }
 <style>
-.nav-button {
-    display: block;
-    width: 100%;
-    text-align: right;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    color: #333;
-    background-color: #fff;
-    text-decoration: none;
-    direction: rtl;
-    margin-bottom: 10px;
-    transition: 0.2s ease;
-}
+    .admin-button {
+        background-color: gold;
+        color: black;
+        font-weight: bold;
+        border: none;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 18px;
+        width: 100%;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+    }
 
-.nav-button:hover {
-    background-color: #f0f0f0;
-    border-color: #999;
-            .nav-list
+        .admin-button:hover {
+            background-color: #e6c200; 
+            color: black;
+            transform: none;
+        }
 
-}
+    .admin-grid {
+        margin-top: 30px;
+    }
+
+        .admin-grid .col {
+            margin-bottom: 20px;
+        }
 </style>
 
-<ul>
-    <li><a asp-page="/Admin/AddMovie" class="nav-button">הוסף סרט</a></li>
-    <li><a asp-page="/Admin/AddHall" class="nav-button">הוסף אולם</a></li>
-    <li><a asp-page="/Admin/AddLanguage" class="nav-button">הוסף שפה</a></li>
-    <li><a asp-page="/Admin/AddGenre" class="nav-button">הוסף ז'אנר</a></li>
-    <li><a asp-page="/Admin/AddScreening" class="nav-button">הוסף הקרנה</a></li>
 
-</ul>
+<div class="container text-center admin-grid">
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        <div class="col">
+            <a asp-page="/Admin/AddMovie" class="admin-button">הוסף סרט</a>
+        </div>
+        <div class="col">
+            <a asp-page="/Admin/AddHall" class="admin-button">הוסף אולם</a>
+        </div>
+        <div class="col">
+            <a asp-page="/Admin/AddLanguage" class="admin-button">הוסף שפה</a>
+        </div>
+        <div class="col">
+            <a asp-page="/Admin/AddGenre" class="admin-button">הוסף ז'אנר</a>
+        </div>
+        <div class="col">
+            <a asp-page="/Admin/AddScreening" class="admin-button">הוסף הקרנה</a>
+        </div>
+
+        <div class="col">
+            <a asp-page="/Admin/DeleteScreening" class="admin-button">מחק הקרנה</a>
+        </div>
+        <div class="col">
+            <a asp-page="/Admin/DeleteGenre" class="admin-button">מחק ז'אנר</a>
+        </div>
+        <div class="col">
+            <a asp-page="/Admin/DeleteHall" class="admin-button">מחק אולם</a>
+        </div>
+        <div class="col">
+            <a asp-page="/Admin/DeleteLanguage" class="admin-button">מחק שפה</a>
+        </div>
+        <div class="col">
+            <a asp-page="/Admin/DeleteMovie" class="admin-button">מחק סרט</a>
+        </div>
+    </div>
+</div>

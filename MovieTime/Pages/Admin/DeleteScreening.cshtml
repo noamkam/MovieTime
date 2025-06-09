@@ -1,0 +1,24 @@
+﻿@page
+@model MovieTime.Pages.Admin.DeleteScreeningModel
+@{
+    ViewData["Title"] = "מחק הקרנה";
+}
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="text-success mt-3 text-center">@Model.Message</p>
+}
+
+<div class="container mt-4" dir="rtl">
+    @foreach (var screening in Model.Screenings)
+    {
+        <div class="mb-3 border-bottom pb-2">
+            <p><strong>סרט:</strong> @screening.Movie.Title</p>
+            <p><strong>תאריך ושעה:</strong> @screening.ScreeningDateTime.ToString("g")</p>
+            <p><strong>אולם:</strong> @screening.Hall.HallId</p>
+            <form method="post" asp-page-handler="Delete" asp-route-id="@screening.ScreeningId">
+                <button type="submit" class="btn btn-warning text-dark">מחק הקרנה</button>
+            </form>
+        </div>
+    }
+</div>

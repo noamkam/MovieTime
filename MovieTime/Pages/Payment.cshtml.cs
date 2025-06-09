@@ -99,7 +99,7 @@ namespace MovieTime.Pages
                 DiscountId = Code != null ? _context.Discounts.Where(d => d.Code == Code).Select(d => d.DiscountId).FirstOrDefault() : (int?)null
             };
             _context.Purchases.Add(newPurchase);
-            await _context.SaveChangesAsync(); // Now newPurchase.PurchaseId is set
+            await _context.SaveChangesAsync(); 
 
 
             foreach (var seat in SelectedSeats)
@@ -111,9 +111,14 @@ namespace MovieTime.Pages
                     PurchaseId = newPurchase.PurchaseId
                 });
             }
-
             await _context.SaveChangesAsync();
-            return Page();
+            var movieId = _context.Screenings.Where(s => s.ScreeningId == ScreeningId).Select(s => s.MovieId).FirstOrDefault();
+            var movieTitle = _context.Movies.Where(m => m.Id == movieId).Select(m => m.Title).FirstOrDefault();
+            var hallId = _context.Screenings.Where(s => s.ScreeningId == ScreeningId).Select(s => s.HallId).FirstOrDefault();
+            var seats = _context.Tickets.Where(t => t.ScreeningId == ScreeningId && t.PurchaseId == newPurchase.PurchaseId).Select(t => t.SeatId).ToList();
+            var screeningDateTime = _context.Screenings.Where(s => s.ScreeningId == ScreeningId).Select(s => s.ScreeningDateTime).FirstOrDefault();
+            await _context.SaveChangesAsync();
+            return  RedirectToPage("PurchaseConfirmation", new { MovieTitle = movieTitle, HallNumber = hallId, SeatNumbers = seats, ScreeningDateTime = screeningDateTime, PurchaseId = newPurchase.PurchaseId });
         }
     }
 }
