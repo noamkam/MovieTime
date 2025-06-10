@@ -34,8 +34,24 @@ public class RegisterModel : PageModel
     public string ErrorMessage { get; set; }
     public async Task<IActionResult> OnPostAsync()
     {
-        
+        // בדיקה אם אחד מהשדות ריק
+        if (string.IsNullOrWhiteSpace(Name) ||
+            string.IsNullOrWhiteSpace(PhoneNumber) ||
+            DateOfBirth == default || // תאריך לידה לא נבחר
+            string.IsNullOrWhiteSpace(Email) ||
+            string.IsNullOrWhiteSpace(Password) ||
+            string.IsNullOrWhiteSpace(UserName))
+        {
+            ErrorMessage = ErrorMessages.EmptyFields;
+            return Page(); // נשארים באותו עמוד ומציגים את ההודעה
+        }
+        if (PhoneNumber.Length != 10 || !PhoneNumber.All(char.IsDigit))
+        {
+            ErrorMessage = ErrorMessages.PhoneInvalid;
+            return Page();
+        }
 
+        // אם הכל תקין - ממשיכים לשמור במסד
         var customer = new Customer
         {
             UserName = UserName,
@@ -51,4 +67,5 @@ public class RegisterModel : PageModel
 
         return RedirectToPage("/Index");
     }
+
 }

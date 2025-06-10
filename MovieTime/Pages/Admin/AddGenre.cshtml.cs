@@ -22,11 +22,29 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
+
+            bool exists = _context.Genres.Any(g => g.Name.Trim().ToLower() == Genre.Name.Trim().ToLower());
+
+            if (exists)
+            {
+                Message=  AdminMessages.GenreAlreadyExists;
+                return Page();
+            }
+
             _context.Genres.Add(Genre);
             await _context.SaveChangesAsync();
 
             Message = AdminMessages.AddGenreSuccess;
+            ModelState.Clear();
+            Genre = new Genre();
+
             return Page();
         }
+
+
     }
 }

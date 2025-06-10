@@ -43,10 +43,18 @@ namespace MovieTime.Pages.Admin
                 })
                 .OrderBy(l => l.Text)
                 .ToListAsync();
+
+           
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            bool exists = _context.Movies.Any(m => m.Title == Movie.Title && m.GenreId == Movie.GenreId && m.LanguageId == Movie.LanguageId && m.DubbedIntoHebrew == Movie.DubbedIntoHebrew);
+            if (exists)
+            {
+                Message = AdminMessages.MovieAlreadyExists;
+                return Page();
+            }
             _context.Movies.Add(Movie);
             await _context.SaveChangesAsync();
             Message = AdminMessages.AddMovieSuccess;

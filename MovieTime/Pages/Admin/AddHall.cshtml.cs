@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using MovieTime.Context;
 using MovieTime.Messages;
 using MovieTime.Models;
@@ -22,8 +23,11 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //    return Page();
+            if ( Hall.SeatCount == 0)
+            {
+                Message = AdminMessages.HallNull; 
+                return Page();
+            }
 
             // הוספת האולם
             _context.Halls.Add(Hall);

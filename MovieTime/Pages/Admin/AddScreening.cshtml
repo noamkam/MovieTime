@@ -9,18 +9,21 @@
         <input asp-for="Screening.ScreeningDateTime" class="form-control" placeholder="תאריך הקרנה" />
         <span asp-validation-for="Screening.ScreeningDateTime" class="text-danger"></span>
     </div>
+
     <div class="form-group mb-3">
         <select asp-for="Screening.MovieId" class="form-control" asp-items="Model.MoviesSelectList">
             <option value="">בחר סרט</option>
         </select>
         <span asp-validation-for="Screening.MovieId" class="text-danger"></span>
     </div>
+
     <div class="form-group mb-3">
         <select asp-for="Screening.HallId" class="form-control" asp-items="Model.HallsSelectList">
             <option value="">בחר אולם</option>
         </select>
         <span asp-validation-for="Screening.HallId" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-warning">הוסף הקרנה</button>
 </form>
 

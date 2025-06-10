@@ -22,9 +22,20 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+
+            if (Language == null )
+            {
+                Message = AdminMessages.LanguageNull;
+                return Page();
+            }
+            bool exists = _context.Languages.Any(l => l.Name.Trim() == Language.Name.Trim());
+            if (exists)
+            {
+                Message = AdminMessages.LanguageAlreadyExists;
+                return Page();
+            }
             _context.Languages.Add(Language);
             await _context.SaveChangesAsync();
-
             Message = AdminMessages.AddLanguageSuccess;
             return Page();
         }

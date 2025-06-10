@@ -5,11 +5,11 @@ namespace MovieTime.Models
 {
     public class Genre
     {
-        [Required]
-        public int Id { get; set; }
-        [Required]
-        [StringLength(100, ErrorMessage = ValidationsMessages.NameLengthLongerThan100Ch)]
+        public int Id { get; set; } 
+
+        [Required(ErrorMessage = AdminMessages.GenreNull)]
         public string Name { get; set; }
-        public ICollection<Movie> Movies { get; set; }//One to Many relationship with Movie
+
+        public ICollection<Movie> Movies { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +50,19 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+
+            bool exists = _context.Screenings.Any(s => s.MovieId == Screening.MovieId && s.HallId == Screening.HallId && s.ScreeningDateTime == Screening.ScreeningDateTime);
+            if (exists)
+            {
+                Message = AdminMessages.ScreeningAlreadyExists;
+                return Page();
+            }
+           
+            if (Screening.MovieId == 0 || Screening.HallId == 0)
+            {
+                Message = AdminMessages.ScreeningNull;
+                return Page();
+            }
             _context.Screenings.Add(Screening);
             await _context.SaveChangesAsync();
             Message = AdminMessages.AddScreeningSuccess;

@@ -2,8 +2,7 @@
 {
     public class ValidationsMessages
     {
-        public const string NameLengthLongerThan100Ch = "Name can not be longer than 100 characters";
-        public const string EmailInvalid = "Invalid Email Address";
-        public const string PhoneInvalid = "Invalid Phone Number";
+        public const string EmailInvalid = " כתובת האימייל אינה תקינה";
+        public const string PhoneInvalid = "מספר הטלפון אינו תקין";
     }
 }

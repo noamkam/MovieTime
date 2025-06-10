@@ -8,8 +8,7 @@ namespace MovieTime.Models
         [Required]
         public int Id { get; set; }
         
-        [Required]
-        [StringLength(100, ErrorMessage = ValidationsMessages.NameLengthLongerThan100Ch)]
+        [Required(ErrorMessage = RegistrationMessages.NameNull)]
         public string Name { get; set; }
         
         [Required]
@@ -27,6 +26,6 @@ namespace MovieTime.Models
 
         [Required]
         public string Password { get; set; }
-        public ICollection<Purchase> Purchases { get; set; } // One to Many relationship with Purchase
+        public ICollection<Purchase> Purchases { get; set; } 
     }
 }
