@@ -27,7 +27,8 @@ namespace MovieTime.Pages
         public string ErrorMessage { get; set; }
 
         public IActionResult OnPost()
-        {
+        { 
+            // בדיקה אם קיים במסד מנהל עם שם משתמש וססמא תואמים לאלו שהוזנו
             var admin = _context.Admins.FirstOrDefault(a => a.UserName == UserName && a.Password == Password);
             if (admin != null)
             {

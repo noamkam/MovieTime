@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MovieTime.Models
 {
-    public class Language
+    public class Language // מחלקת שפה
     {
         [Required]
         public int Id { get; set; }
@@ -11,6 +11,7 @@ namespace MovieTime.Models
         [Required(ErrorMessage =LanguageMessages.LanguageNull)]
 
         public string Name { get; set; }
-        public ICollection<Movie> Movies { get; set; }//One to Many relationship with Movie
+        public ICollection<Movie> Movies { get; set; } // כל הסרטים בשפה הזו
+        // קשר יחיד לרבים - כל שפה יכולה להיות בכמה סרטים
     }
 }

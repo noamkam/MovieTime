@@ -20,16 +20,12 @@ namespace MovieTime.Pages.Admin
 
         public string Message { get; set; }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync() //לוחצים על הוסף ז'אנר
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
 
-            bool exists = _context.Genres.Any(g => g.Name.Trim().ToLower() == Genre.Name.Trim().ToLower());
+            bool exists = _context.Genres.Any(g => g.Name.Trim() == Genre.Name.Trim());//בדיקה אם קיים ז'אנר עם אותו שם כמו זה שהוכנס
 
-            if (exists)
+            if (exists) //אם קיים
             {
                 Message=  AdminMessages.GenreAlreadyExists;
                 return Page();

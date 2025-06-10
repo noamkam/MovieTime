@@ -23,11 +23,12 @@ namespace MovieTime.Pages.Admin
 
         public async Task OnGetAsync()
         {
-            Genres = await _context.Genres.ToListAsync();
+            Genres = await _context.Genres.ToListAsync(); // טעינת הז'אנרים ממסד הנתונים
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
-        {
+        { 
+            // ID-מחפש במסד את הז'אנר שהוקלד לפי ה
             var genre = await _context.Genres.FindAsync(id);
             if (genre != null)
             {

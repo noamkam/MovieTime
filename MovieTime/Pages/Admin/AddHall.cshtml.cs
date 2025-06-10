@@ -23,7 +23,7 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if ( Hall.SeatCount == 0)
+            if ( Hall.SeatCount == 0) //אם אין כיסאות באולם
             {
                 Message = AdminMessages.HallNull; 
                 return Page();
@@ -33,8 +33,7 @@ namespace MovieTime.Pages.Admin
             _context.Halls.Add(Hall);
             await _context.SaveChangesAsync(); //שומר את האולם במסד הנתונים  
 
-            //  יצירת כיסאות לאולם
-         
+            // יצירת כיסאות לאולם
             for (int i = 1; i <= Hall.SeatCount; i++)
             {
                 _context.Seats.Add(new Seat
@@ -46,12 +45,8 @@ namespace MovieTime.Pages.Admin
 
             await _context.SaveChangesAsync(); //שמירה של הכיסאות במסד הנתונים
 
-            Message = AdminMessages.AddHallSuccess; // הודעת הצלחה
+            Message = AdminMessages.AddHallSuccess; 
             return Page();
-        }
-
-        public void OnGet()
-        {
         }
     }
 }

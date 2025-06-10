@@ -1,4 +1,4 @@
- using Microsoft.AspNetCore.Mvc;
+﻿ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,21 +17,17 @@ namespace MovieTime.Pages.Admin
         {
             _context = context;
         }
+
         [BindProperty]
       
         public Screening Screening { get; set; }
-
         public string Message { get; set; }
-
-     
         public List<SelectListItem> HallsSelectList { get; set; }
-
-        
-
         public List<SelectListItem> MoviesSelectList { get; set; }
 
         public async Task OnGetAsync()
         {
+            // רשימות של בחירת אולם וסרט
             HallsSelectList = await _context.Halls
                 .Select(h => new SelectListItem
                 {
@@ -55,7 +51,7 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
-
+           // אם כבר קיימת הקרנה כזו
             bool exists = _context.Screenings.Any(s => s.MovieId == Screening.MovieId && s.HallId == Screening.HallId && s.ScreeningDateTime == Screening.ScreeningDateTime);
             if (exists)
             {

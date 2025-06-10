@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MovieTime.Models
 {
-    public class Screening
+    public class Screening // מחלקת הקרנה
     {
         public int ScreeningId { get; set; }
         [Required(ErrorMessage = ScreeningMessages.MovieRequierd)]
@@ -17,7 +17,8 @@ namespace MovieTime.Models
 
         [Required(ErrorMessage = ScreeningMessages.ScreeningRequierd)]
         public DateTime ScreeningDateTime { get; set; }
-        public ICollection<Ticket> Tickets { get; set; } 
+        public ICollection<Ticket> Tickets { get; set; } // כל הכרטיסים שנמכרו להקרנה
+        // קשר יחיד לרבים - בכל הקרנה יכולים להיות כמה כרטיסים
 
     }
 }

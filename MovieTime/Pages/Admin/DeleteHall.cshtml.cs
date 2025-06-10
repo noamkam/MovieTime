@@ -28,6 +28,7 @@ namespace MovieTime.Pages.Admin
 
         public void OnGet()
         {
+            //טוען את רשימת האולמות מהמסד
             HallOptions = _context.Halls
                 .Select(h => new SelectListItem
                 {
@@ -38,6 +39,7 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // חיפוש האולם שנבחר
             var hall = await _context.Halls
                 .Include(h => h.Seats)
                 .FirstOrDefaultAsync(h => h.HallId == SelectedHallId);
@@ -57,9 +59,9 @@ namespace MovieTime.Pages.Admin
 
             await _context.SaveChangesAsync();
 
-            Message= AdminMessages.DeleteHallSuccess; // הודעת הצלחה
+            Message= AdminMessages.DeleteHallSuccess; 
 
-            // לרענון הרשימה לאחר מחיקה
+            // רענון הרשימה לאחר מחיקה
             OnGet();
             return Page();
         }

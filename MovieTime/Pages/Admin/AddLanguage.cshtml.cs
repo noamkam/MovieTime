@@ -23,11 +23,12 @@ namespace MovieTime.Pages.Admin
         public async Task<IActionResult> OnPostAsync()
         {
 
-            if (Language == null )
+            if (Language == null ) // אם לא הוזנה שפה
             {
                 Message = AdminMessages.LanguageNull;
                 return Page();
             }
+            //אם השפה כבר קיימת במסד
             bool exists = _context.Languages.Any(l => l.Name.Trim() == Language.Name.Trim());
             if (exists)
             {

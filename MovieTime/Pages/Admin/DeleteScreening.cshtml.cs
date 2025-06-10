@@ -22,6 +22,7 @@ namespace MovieTime.Pages.Admin
 
         public async Task OnGetAsync()
         {
+            // טעינת ההקרנות
             Screenings = await _context.Screenings
                 .Include(s => s.Movie)
                 .Include(s => s.Hall)
@@ -31,19 +32,20 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
+            //ID-טעינת הקרנה לפי ה 
             var screening = await _context.Screenings
                 .Include(s => s.Tickets)
                 .FirstOrDefaultAsync(s => s.ScreeningId == id);
 
             if (screening == null)
             {
-                return NotFound();
+                Message = ScreeningMessages.ScreeningNotFound;
             }
 
-            // מחיקת כל הכרטיסים שקשורים להקרנה
+            // מחיקת הכרטיסים 
             _context.Tickets.RemoveRange(screening.Tickets);
 
-            // מחיקת ההקרנה עצמה
+            // מחיקת ההקרנה
             _context.Screenings.Remove(screening);
 
             await _context.SaveChangesAsync();

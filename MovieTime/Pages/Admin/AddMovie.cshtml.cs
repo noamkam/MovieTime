@@ -21,11 +21,12 @@ namespace MovieTime.Pages.Admin
 
         public string Message { get; set; }
 
-        public List<SelectListItem> GenresSelectList { get; set; }
-        public List<SelectListItem> LanguagesSelectList { get; set; }
+        public List<SelectListItem> GenresSelectList { get; set; } // ז'אנרים לבחירה
+        public List<SelectListItem> LanguagesSelectList { get; set; } // שפות לבחירה
 
         public async Task OnGetAsync()
         {
+            //מיון הז'אנרים והשפות לרשימות שמכילות טקסט להצגה
             GenresSelectList = await _context.Genres
                 .Select(g => new SelectListItem
                 {
@@ -49,6 +50,7 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // אם קיים כבר סרט כזה
             bool exists = _context.Movies.Any(m => m.Title == Movie.Title && m.GenreId == Movie.GenreId && m.LanguageId == Movie.LanguageId && m.DubbedIntoHebrew == Movie.DubbedIntoHebrew);
             if (exists)
             {

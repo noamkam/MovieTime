@@ -2,7 +2,7 @@
 
 namespace MovieTime.Models
 {
-    public class Admin
+    public class Admin //מחלקת מנהל
     {
         public int Id { get; set; }
         public string Name { get; set; }

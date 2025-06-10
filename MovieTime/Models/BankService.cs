@@ -2,7 +2,7 @@
 
 namespace MovieTime.Models
 {
-    public class BankService
+    public class BankService //מחלקת בנק
     {
         public string OwnerName { get; set; }
         public string OwnerId { get; set; }

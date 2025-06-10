@@ -26,6 +26,7 @@ namespace MovieTime.Pages.Admin
 
         public void OnGet()
         {
+            //רשימה של כל השפות ממסד הנתונים
             LanguageOptions = _context.Languages
                 .Select(l => new SelectListItem
                 {
@@ -36,6 +37,7 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+            //מחפש את השפה שנבחרה 
             var language = await _context.Languages
                 .FirstOrDefaultAsync(l => l.Id == SelectedLanguageId);
 

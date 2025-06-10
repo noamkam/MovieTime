@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MovieTime.Models
 {
-    public class Customer
+    public class Customer // מחלקת לקוח
     {
         [Required]
         public int Id { get; set; }
@@ -18,6 +18,7 @@ namespace MovieTime.Models
         [Required]
         [Phone(ErrorMessage = ValidationsMessages.PhoneInvalid)]
         public string PhoneNumber { get; set; }
+
         [Required]
         public DateTime DateOfBirth { get; set; } 
 
@@ -26,6 +27,7 @@ namespace MovieTime.Models
 
         [Required]
         public string Password { get; set; }
-        public ICollection<Purchase> Purchases { get; set; } 
+        public ICollection<Purchase> Purchases { get; set; } //רכישות שביצע הלקוח
+        //קשר יחיד לרבים- לקוח אחד יכול לבצע מספר רכישות
     }
 }

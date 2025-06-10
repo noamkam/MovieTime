@@ -22,6 +22,7 @@ namespace MovieTime.Pages.Admin
 
         public async Task OnGetAsync()
         {
+            //טעינת רשימת הסרטים
             Movies = await _context.Movies
                 .OrderBy(m => m.Title)
                 .ToListAsync();
@@ -29,6 +30,7 @@ namespace MovieTime.Pages.Admin
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
+            //בדיקה אם הסרט קיים במסד
             var movie = await _context.Movies
                 .Include(m => m.Screenings)
                     .ThenInclude(s => s.Tickets)
@@ -39,16 +41,16 @@ namespace MovieTime.Pages.Admin
                 return NotFound();
             }
 
-            // מחיקת כל הכרטיסים שקשורים להקרנות של הסרט
+            // מחיקת הכרטיסים    
             foreach (var screening in movie.Screenings)
             {
                 _context.Tickets.RemoveRange(screening.Tickets);
             }
 
-            // מחיקת כל ההקרנות של הסרט
+            // מחיקת ההקרנות  
             _context.Screenings.RemoveRange(movie.Screenings);
 
-            // מחיקת הסרט עצמו
+            // מחיקת הסרט 
             _context.Movies.Remove(movie);
 
             await _context.SaveChangesAsync();

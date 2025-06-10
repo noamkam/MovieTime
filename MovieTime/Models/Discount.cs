@@ -2,7 +2,7 @@
 
 namespace MovieTime.Models
 {
-    public class Discount
+    public class Discount // מחלקת הנחה
     {
         [Required]
         public int DiscountId { get; set; }
@@ -11,6 +11,7 @@ namespace MovieTime.Models
         public double Percentage { get; set; }  
         public DateTime ExpiryDate { get; set; }
         public bool IsActive { get; set; } = true;
-        public ICollection<Purchase> Purchases { get; set; } // One to Many relationship with Purchase
+        public ICollection<Purchase> Purchases { get; set; }//רכישות שמשתמשות בהנחה 
+        // קשר יחיד לרבים - קופון אחד יכול להיות בכמה רכישות
     }
 }
