@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MovieTime.Messages;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieTime.Models
 {
     public class Hall
     {
-        [Required]
         public int HallId { get; set; }
+
+        [Required(ErrorMessage = SeatMessages.SeatCountlRequierd)]
         public int SeatCount { get; set; }
         public bool IsVIP { get; set; } = false;
         public ICollection<Screening> Screenings { get; set; } // One to Many relationship with Screening

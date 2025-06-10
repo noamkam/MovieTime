@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using MovieTime.Context;
@@ -13,30 +13,41 @@ namespace MovieTime.Pages
         public MovieTimeDBContext _context;
 
         [BindProperty]
+        [Required(ErrorMessage = PaymentMessages.AccountNumberNull)]
         public string AccountNumber { get; set; }
 
         [BindProperty]
-
+        [Required(ErrorMessage = PaymentMessages.CreditCardNumberNull)]
         public string CreditCardNumer { get; set; }
+
         [BindProperty]
+        [Required(ErrorMessage = PaymentMessages.OwnerIdNull)]
         public string OwnerId { get; set; }
 
         [BindProperty]
+        [Required(ErrorMessage = PaymentMessages.CVVNull)]
         public string CVV { get; set; }
+
         [BindProperty]
+        [Required(ErrorMessage = PaymentMessages.ValidityMonthNull)]
         public string ValidityMonth { get; set; }
+
         [BindProperty]
+        [Required(ErrorMessage = PaymentMessages.ValidityYearNull)]
         public string ValidityYear { get; set; }
+
         [BindProperty(SupportsGet = true)]
 
         public List<int> SelectedSeats { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public int ScreeningId { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public string CustomerId { get; set; }
 
         [BindProperty]
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         public string ErrorMessage { get; set; }
         public IConfiguration Configuration { get; set; }
@@ -54,12 +65,7 @@ namespace MovieTime.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            //get the owner account details
+    
             var account = _context.BankService.Where(a => a.AccountNumber == AccountNumber).FirstOrDefault();
             if (account == null || account.OwnerId != OwnerId || account.CreditCardNumber != CreditCardNumer || account.CVV != CVV || account.ValidityMonth != ValidityMonth || account.ValidityYear != ValidityYear)
             {
@@ -69,23 +75,24 @@ namespace MovieTime.Pages
 
             if (account.Balance < SelectedSeats.Count * Configuration.GetValue<int>("TicketPrice"))
             {
-              //  ErrorMessage = "Insufficient balance.";
+               ErrorMessage = PaymentMessages.NotEnoughBalance;
                 return Page();
             }
-            // ErrorMessage = LoginMessages.InvalidCredentials;
+            
 
             float discountPercentage = 0;
 
-            if (Code != null)
+            if (!string.IsNullOrEmpty(Code))
             {
                 var discount = _context.Discounts.Where(d => d.Code == Code).FirstOrDefault();
-                if(discount == null)
-                {
+                if (discount == null)
+                { 
                     ErrorMessage = PaymentMessages.CodeInvalid;
                     return Page();
                 }
                 else
                 {
+                    // אם הקוד קיים, מחשבים את האחוז הנחה
                     discountPercentage = (float)discount.Percentage;
                 }
             }

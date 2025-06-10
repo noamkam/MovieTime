@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieTime.Context;
 using MovieTime.Messages;
 using MovieTime.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieTime.Pages.Admin
 {
@@ -17,11 +18,15 @@ namespace MovieTime.Pages.Admin
             _context = context;
         }
         [BindProperty]
+      
         public Screening Screening { get; set; }
 
         public string Message { get; set; }
 
+     
         public List<SelectListItem> HallsSelectList { get; set; }
+
+        
 
         public List<SelectListItem> MoviesSelectList { get; set; }
 
@@ -57,12 +62,7 @@ namespace MovieTime.Pages.Admin
                 Message = AdminMessages.ScreeningAlreadyExists;
                 return Page();
             }
-           
-            if (Screening.MovieId == 0 || Screening.HallId == 0)
-            {
-                Message = AdminMessages.ScreeningNull;
-                return Page();
-            }
+          
             _context.Screenings.Add(Screening);
             await _context.SaveChangesAsync();
             Message = AdminMessages.AddScreeningSuccess;

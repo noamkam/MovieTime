@@ -2,6 +2,6 @@
 {
     public class LanguageMessages
     {
-        public const string LanguageNull = "לא הוזנה שפה";
+        public const string LanguageNull = "לא נבחרה שפה";
     }
 }

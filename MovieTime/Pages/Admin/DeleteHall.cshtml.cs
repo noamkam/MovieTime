@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieTime.Context;
-using MovieTime.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MovieTime.Context;
 using MovieTime.Messages;
+using MovieTime.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieTime.Pages.Admin
 {
@@ -18,6 +19,7 @@ namespace MovieTime.Pages.Admin
         }
 
         [BindProperty]
+        [Required(ErrorMessage = HallMessages.HallNull)]
         public int SelectedHallId { get; set; }
 
         public List<SelectListItem> HallOptions { get; set; }

@@ -18,7 +18,7 @@ namespace MovieTime.Pages.Admin
         }
 
         [BindProperty]
-        public int SelectedLanguageId { get; set; }
+        public int? SelectedLanguageId { get; set; }
 
         public List<SelectListItem> LanguageOptions { get; set; }
 
@@ -41,7 +41,7 @@ namespace MovieTime.Pages.Admin
 
             if (language == null)
             {
-                ModelState.AddModelError(string.Empty, "השפה לא נמצאה.");
+                Message = AdminMessages.LanguageNull;
                 OnGet();
                 return Page();
             }

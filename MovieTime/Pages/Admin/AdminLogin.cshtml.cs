@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieTime.Context;
 using MovieTime.Messages;
 using MovieTime.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieTime.Pages
 {
@@ -16,9 +17,11 @@ namespace MovieTime.Pages
         }
 
         [BindProperty]
+        [Required(ErrorMessage = LoginMessages.UsernameRequired)]
         public string UserName { get; set; }
 
         [BindProperty]
+        [Required(ErrorMessage = LoginMessages.PasswordRequired)]
         public string Password { get; set; }
 
         public string ErrorMessage { get; set; }
