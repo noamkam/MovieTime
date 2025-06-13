@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MovieTime.Context;
@@ -10,6 +10,7 @@ namespace MovieTime.Pages
     public class LoginModel : PageModel
     {
         public MovieTimeDBContext _context;
+
         [BindProperty]
         [Required(ErrorMessage = LoginMessages.UsernameRequired)]
         public string Username { get; set; }
@@ -17,18 +18,12 @@ namespace MovieTime.Pages
         [BindProperty]
         [Required(ErrorMessage = LoginMessages.PasswordRequired)]
         public string Password { get; set; }
-
         public string ErrorMessage { get; set; }
 
         public LoginModel(MovieTimeDBContext context)
         {
             _context = context;
         }
-        public void OnGet()
-        {
-            
-        }
-
         public async Task<IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
@@ -39,10 +34,9 @@ namespace MovieTime.Pages
             var customer = await _context.Customers
             .Where(c => c.UserName == Username && c.Password == Password)
             .FirstOrDefaultAsync();
-            //Check if customer exists with the username and password
+            // בדיקה אם יש משתמש עם הסיסמא והשם שהוזמנו
             if (customer != null)
             {
-                //save the Name in session
                 HttpContext.Session.SetString("UserName", customer.Name);
                 HttpContext.Session.SetString("CustomerId", customer.Id.ToString());
                 return RedirectToPage("/Index");

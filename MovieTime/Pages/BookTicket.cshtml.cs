@@ -33,6 +33,7 @@ namespace MovieTime.Pages
 
         public void OnGet()
         {
+            // טוען את רשימת הסרטים לבחירה
             MoviesSelectList = _context.Movies
                 .Select(m => new SelectListItem
                 {
@@ -43,6 +44,7 @@ namespace MovieTime.Pages
 
         public async Task<JsonResult> OnGetScreeningsAsync(int movieId)
         {
+            // כל ההקרנות של הסרט שנבחר
             var screenings = await _context.Screenings
                 .Where(s => s.MovieId == movieId)
                 .Select(s => new
@@ -59,14 +61,14 @@ namespace MovieTime.Pages
             if (SelectedMovieId == 0)
             {
                 Message = ErrorMessages.MovieNotSelected;
-                OnGet(); // כדי למלא את MoviesSelectList מחדש
+                OnGet(); 
                 return Page();
             }
 
             if (SelectedScreeningId == 0)
             {
                 Message = ErrorMessages.ScreeningNotSelected;
-                OnGet(); // כדי למלא את MoviesSelectList מחדש
+                OnGet();
                 return Page();
             }
 

@@ -39,14 +39,14 @@ namespace MovieTime.Pages
                 SeatNumbers = new List<int>();
             }
 
-            // פורמט נוח להצגה אם נדרש
+            // המרת תאריך ושעה לפורמט נוח
             if (DateTime.TryParse(ScreeningDateTime, out var parsedDate))
             {
                 FormattedDateTime = parsedDate.ToString("dd/MM/yyyy HH:mm");
             }
             else
             {
-                FormattedDateTime = ScreeningDateTime; // במידה ולא פורמט תקין
+                FormattedDateTime = ScreeningDateTime; 
             }
 
             return Page();

@@ -48,9 +48,8 @@ namespace MovieTime.Pages
 
         [BindProperty]
         public string? Code { get; set; }
-
         public string ErrorMessage { get; set; }
-        public IConfiguration Configuration { get; set; }
+        public IConfiguration Configuration { get; set; } //ניגש לערכים מהאפסטינגס
 
         public PaymentModel(MovieTimeDBContext context, IConfiguration configuration)
         {
@@ -58,30 +57,24 @@ namespace MovieTime.Pages
             Configuration = configuration;
         }
 
-        public void OnGet()
-        {
-
-        }
-
         public async Task<IActionResult> OnPost()
         {
-    
+            // בדיקה אם קיים חשבון בנק כמו שהוזן
             var account = _context.BankService.Where(a => a.AccountNumber == AccountNumber).FirstOrDefault();
             if (account == null || account.OwnerId != OwnerId || account.CreditCardNumber != CreditCardNumer || account.CVV != CVV || account.ValidityMonth != ValidityMonth || account.ValidityYear != ValidityYear)
             {
                 ErrorMessage = PaymentMessages.DetailsInvalid;
                 return Page();
             }
-
+            // אם אין מספיק יתרה בחשבון בשביל רכישת הכרטיסים
             if (account.Balance < SelectedSeats.Count * Configuration.GetValue<int>("TicketPrice"))
             {
                ErrorMessage = PaymentMessages.NotEnoughBalance;
                 return Page();
             }
-            
-
             float discountPercentage = 0;
 
+            // אם הוזן קוד קופון אבדוק אם קיים במסד
             if (!string.IsNullOrEmpty(Code))
             {
                 var discount = _context.Discounts.Where(d => d.Code == Code).FirstOrDefault();
@@ -92,7 +85,7 @@ namespace MovieTime.Pages
                 }
                 else
                 {
-                    // אם הקוד קיים, מחשבים את האחוז הנחה
+                    //חישוב אחוזי ההנחה
                     discountPercentage = (float)discount.Percentage;
                 }
             }

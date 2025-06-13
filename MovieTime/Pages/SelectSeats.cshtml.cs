@@ -35,13 +35,14 @@ namespace MovieTime.Pages
         {
             ScreeningId = screeningId;
             NumTickets = tickets;
+            // האולם שקשור להקרנה שנבחרה
             var hall = await _context.Screenings
                 .Where(s => s.ScreeningId == ScreeningId)
                 .Select(s => s.Hall)
                 .FirstOrDefaultAsync();
            
             HallSeats = Enumerable.Range(1, hall.SeatCount).ToList();
-
+            //הכיסאות שכבר נקנו
             TakenSeats = await _context.Tickets
                 .Where(t => t.ScreeningId == ScreeningId)
                 .Select(t => t.SeatId)
@@ -49,7 +50,6 @@ namespace MovieTime.Pages
 
             return Page();
         }
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (SelectedSeats == null || SelectedSeats.Count != NumTickets)
@@ -58,6 +58,7 @@ namespace MovieTime.Pages
                 return await OnGetAsync(ScreeningId, NumTickets);
             }
 
+            //שליפת מזהה הלקוח מהסשן
             var customerId = HttpContext.Session.GetString("CustomerId");
 
             return RedirectToPage("/Payment", new { SelectedSeats = SelectedSeats, CustomerId = customerId, ScreeningId = ScreeningId});

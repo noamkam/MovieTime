@@ -65,11 +65,12 @@
                 .then(response => response.json())
                 .then(data => {
                     screeningSelect.innerHTML = '<option value="">בחר תאריך</option>';
-                    data.forEach(s => {
-                        var option = document.createElement("option");
-                        option.value = s.id;
-                        option.text = s.date;
-                        screeningSelect.appendChild(option);
+                    data.forEach(s => 
+                    {
+                       var option = document.createElement("option");
+                       option.value = s.id;
+                       option.text = s.date;
+                       screeningSelect.appendChild(option);
                     });
                 });
         });

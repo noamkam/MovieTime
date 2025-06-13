@@ -34,24 +34,22 @@ public class RegisterModel : PageModel
     public string ErrorMessage { get; set; }
     public async Task<IActionResult> OnPostAsync()
     {
-        // בדיקה אם אחד מהשדות ריק
+        // בדיקה אם השדות ריקים
         if (string.IsNullOrWhiteSpace(Name) ||
             string.IsNullOrWhiteSpace(PhoneNumber) ||
-            DateOfBirth == default || // תאריך לידה לא נבחר
+            DateOfBirth == default || 
             string.IsNullOrWhiteSpace(Email) ||
             string.IsNullOrWhiteSpace(Password) ||
             string.IsNullOrWhiteSpace(UserName))
         {
             ErrorMessage = ErrorMessages.EmptyFields;
-            return Page(); // נשארים באותו עמוד ומציגים את ההודעה
+            return Page();
         }
-        if (PhoneNumber.Length != 10 || !PhoneNumber.All(char.IsDigit))
+        if (PhoneNumber.Length != 10 || !PhoneNumber.All(char.IsDigit))//בדיקה שהטלפון 10 ספרות
         {
             ErrorMessage = ErrorMessages.PhoneInvalid;
             return Page();
         }
-
-        // אם הכל תקין - ממשיכים לשמור במסד
         var customer = new Customer
         {
             UserName = UserName,

@@ -19,6 +19,7 @@ namespace MovieTime.Pages
 
         public async Task OnGetAsync()
         {
+            // טעינת הסרטים הקיימים
             Movies = await _context.Movies
            .Include(m => m.Genre)
            .Include(m => m.Language)

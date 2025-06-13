@@ -5,12 +5,14 @@
 }
 
 <form method="post">
+
     <input type="hidden" asp-for="ScreeningId" />
     <input type="hidden" asp-for="NumTickets" />
 
     <div class="seat-map d-flex flex-column align-items-center">
         @{
             int seatsPerRow = 10;
+            //מחלק את  הכיסאות לשורות
             for (int row = 0; row < (Model.HallSeats.Count + seatsPerRow - 1) / seatsPerRow; row++)
             {
                 <div class="seat-row mb-2">
@@ -54,8 +56,6 @@
 
 @section Scripts {
     <script>
-    //    const maxSeats = @Model.NumTickets;
-
         document.querySelectorAll('.seat-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', function () {
                 if (this.disabled) return;
